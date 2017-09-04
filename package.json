@@ -1,0 +1,25 @@
+{
+  "name": "sprout_theme",
+  "version": "1.0.0",
+  "description": "sprout theme gulp tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickDowns55/drupal-7-base-theme.git"
+  },
+  "keywords": [
+    "gulp"
+  ],
+  "author": "nik downz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickDowns55/drupal-7-base-theme/issues"
+  },
+  "homepage": "https://github.com/NickDowns55/drupal-7-base-theme#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
