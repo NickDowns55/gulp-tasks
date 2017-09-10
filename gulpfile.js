@@ -8,14 +8,14 @@ var uglifyJs = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 
 // Set your full base url's here
-var devUrl = 'localhost:8888/standardPipes/'; 
-var projectFilesLocation = './app/';
+var devUrl = 'localhost:8888/standardPipes/'; // url of your site
+var projectFilesLocation = './theme/';  //path to your theme location
 
 var assetDistributionFolder = projectFilesLocation + 'assets';
 
 
 // Start browserSync server
-gulp.task('browserSync', function() {
+gulp.task('assets', function() {
   browserSync({
     proxy: devUrl
     })
@@ -57,4 +57,4 @@ gulp.task('watch', function (){
   gulp.watch(projectFilesLocation + 'js/**/*.js', ['js']).on('change', browserSync.reload);
 })
 
-gulp.task('default', ['sass', 'minify', 'js', 'watch']);
+gulp.task('default', ['sass', 'minify', 'js', 'watch', 'browserSync']);
