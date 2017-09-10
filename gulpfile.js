@@ -4,7 +4,8 @@ var browserSync = require('browser-sync');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
-
+var uglifyJs = require('gulp-uglify');
+var jshint = require('gulp-jshint');
 
 // Set your full base url's here
 var devUrl = 'localhost:8888/standardPipes/'; 
@@ -34,6 +35,16 @@ gulp.task('minify', function(){
 	    .pipe(concat('style.min.css'))
       .pipe(minifyCSS())
 	    .pipe(gulp.dest(fileUrl + 'css'))
+});
+
+gulp.task('js', function(){
+  gulp.src(fileUrl + 'js/**/*.js')
+    .pipe(jshint())
+    // don't forget to npm the jshint-stylish
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(concat('scripts.min.js'))
+    .pipe(uglifyJs())
+    .pipe(gulp.dest(fileUrl + 'js'));
 });
 
 gulp.task('watch', function (){
