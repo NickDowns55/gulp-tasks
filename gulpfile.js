@@ -21,6 +21,7 @@ gulp.task('browserSync', function() {
 gulp.task('sass', function() {
   return gulp.src(fileUrl + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass().on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(gulp.dest(fileUrl + 'css'))
     .pipe(browserSync.reload({
       stream: true
