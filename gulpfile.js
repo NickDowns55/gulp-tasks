@@ -9,7 +9,9 @@ var jshint = require('gulp-jshint');
 
 // Set your full base url's here
 var devUrl = 'localhost:8888/standardPipes/'; 
-var fileUrl = 'sites/all/themes/sproutChild/'
+var projectFilesLocation = './app/';
+
+var assetDistributionFolder = projectFilesLocation + 'assets';
 
 
 // Start browserSync server
@@ -20,9 +22,9 @@ gulp.task('browserSync', function() {
 })
 
 gulp.task('sass', function() {
-  return gulp.src(fileUrl + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
+  return gulp.src(projectFilesLocation + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(gulp.dest(fileUrl + 'css'))
+    .pipe(gulp.dest(projectFilesLocation + 'css'))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -30,29 +32,29 @@ gulp.task('sass', function() {
 
 // css minify
 gulp.task('minify', function(){
-	gulp.src(fileUrl + 'css/**/*.css')
+	gulp.src(projectFilesLocation + 'css/**/*.css')
 	    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
 	    .pipe(concat('style.min.css'))
       .pipe(minifyCSS())
-	    .pipe(gulp.dest(fileUrl + 'css'))
+	    .pipe(gulp.dest(assetDistributionFolder))
 });
 
 gulp.task('js', function(){
-  gulp.src(fileUrl + 'js/**/*.js')
+  gulp.src(projectFilesLocation + 'js/**/*.js')
     .pipe(jshint())
     // don't forget to npm the jshint-stylish
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(concat('scripts.min.js'))
     .pipe(uglifyJs())
-    .pipe(gulp.dest(fileUrl + 'js'));
+    .pipe(gulp.dest(assetDistributionFolder));
 });
 
 gulp.task('watch', function (){
-  gulp.watch(fileUrl + 'scss/**/*.scss', ['sass','minify']).on('change', browserSync.reload);
+  gulp.watch(projectFilesLocation + 'scss/**/*.scss', ['sass','minify']).on('change', browserSync.reload);
   // Other watchers
-  gulp.watch(fileUrl + '*.html', browserSync.reload);
-  gulp.watch(fileUrl + '*.php', browserSync.reload);
-  gulp.watch(fileUrl + 'js/**/*.js', browserSync.reload);
+  gulp.watch(projectFilesLocation + '*.html', browserSync.reload);
+  gulp.watch(projectFilesLocation + '*.php', browserSync.reload);
+  gulp.watch(projectFilesLocation + 'js/**/*.js', ['js']).on('change', browserSync.reload);
 })
 
-gulp.task('default', ['sass', 'minify', 'watch']);
+gulp.task('default', ['sass', 'minify', 'js', 'watch']);
