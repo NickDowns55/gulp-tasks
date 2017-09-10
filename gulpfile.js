@@ -36,10 +36,12 @@ gulp.task('minify', function(){
 	    .pipe(gulp.dest(fileUrl + 'css'))
 });
 
-gulp.task('watch', ['browserSync'], function (){
-  gulp.watch(fileUrl + 'sass/**/*.scss', ['sass','minify']).on('change', browserSync.reload);
+gulp.task('watch', function (){
+  gulp.watch(fileUrl + 'scss/**/*.scss', ['sass','minify']).on('change', browserSync.reload);
   // Other watchers
   gulp.watch(fileUrl + '*.html', browserSync.reload);
   gulp.watch(fileUrl + '*.php', browserSync.reload);
   gulp.watch(fileUrl + 'js/**/*.js', browserSync.reload);
 })
+
+gulp.task('default', ['sass', 'minify', 'watch']);
