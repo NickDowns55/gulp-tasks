@@ -1,5 +1,10 @@
 .testing {
   width: percentage(6/7);
   margin-right:57%;
-  
+  background: red;  
+}
+
+.test {
+  color: blue;
+  display: flex; // testing the auto prefixer
 }
